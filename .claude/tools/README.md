@@ -49,16 +49,26 @@ and re-run setup.
 All tools are invoked the same way on every platform:
 
 ```bash
-python .claude/tools/run.py <tool-name> [args...]
+python -X utf8 .claude/tools/run.py <tool-name> [args...]
 ```
+
+The `-X utf8` flag enables Python's UTF-8 mode at interpreter startup,
+forcing stdout/stderr to UTF-8 regardless of the system locale. **This
+is REQUIRED on Windows in non-UTF-8 locales (cp932 for Japanese, cp936
+for Simplified Chinese, etc.)** — without it, printing Chinese
+characters to stdout will raise `UnicodeEncodeError` when Claude Code
+runs the tool in its built-in shell.
+
+On macOS / Linux this flag is harmless (the locale is usually already
+UTF-8). It is kept in the command for consistency.
 
 Examples:
 
 ```bash
-python .claude/tools/run.py next_chapter_number
-python .claude/tools/run.py word_count book/chapters/001-foo.md
-python .claude/tools/run.py get_recent_chapters 2
-python .claude/tools/run.py list_chapters
+python -X utf8 .claude/tools/run.py next_chapter_number
+python -X utf8 .claude/tools/run.py word_count book/chapters/001-foo.md
+python -X utf8 .claude/tools/run.py get_recent_chapters 2
+python -X utf8 .claude/tools/run.py list_chapters
 ```
 
 ### Why this design

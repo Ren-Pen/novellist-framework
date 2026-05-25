@@ -62,10 +62,18 @@ def main():
     # Run from project root so tools see consistent relative paths
     os.chdir(project_root)
 
+    # Force UTF-8 for the child process to avoid Windows codepage
+    # issues (cp932, cp936, gbk, etc.) when tools print Chinese
+    # characters. PYTHONUTF8 enables UTF-8 mode in Python 3.7+;
+    # PYTHONIOENCODING is a belt-and-suspenders fallback.
+    child_env = os.environ.copy()
+    child_env["PYTHONUTF8"] = "1"
+    child_env["PYTHONIOENCODING"] = "utf-8"
+
     # os.execv would replace this process but doesn't exist cleanly on
     # Windows; use subprocess.call instead for portability.
     import subprocess
-    return subprocess.call([venv_python, tool_path] + tool_args)
+    return subprocess.call([venv_python, tool_path] + tool_args, env=child_env)
 
 
 if __name__ == "__main__":

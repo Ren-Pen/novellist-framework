@@ -27,7 +27,7 @@ Read these in order:
 4. `.claude/docs/emotion-formulas.md` — reference, NOT checklist
 5. `book/bible.md` — read the sections relevant to this chapter
 6. The last 2 chapters in `book/chapters/` for voice continuity.
-   Use `python .claude/tools/run.py get_recent_chapters 2` to fetch them.
+   Use `python -X utf8 .claude/tools/run.py get_recent_chapters 2` to fetch them.
    If fewer than 2 chapters exist, read what's there.
 
 # What you do
@@ -77,7 +77,7 @@ written_date: <YYYY-MM-DD>
 ```
 
 After saving, verify word count using
-`python .claude/tools/run.py word_count book/chapters/{NNN}-{title}.md`
+`python -X utf8 .claude/tools/run.py word_count book/chapters/{NNN}-{title}.md`
 and update the `word_count:` field in the frontmatter if it differs from
 your estimate.
 

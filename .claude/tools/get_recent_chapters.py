@@ -21,7 +21,16 @@ Exit code: 0 on success, 1 on error.
 
 import re
 import sys
+
 from pathlib import Path
+
+# Force UTF-8 on stdout/stderr.
+# On Windows the console may default to cp932/cp936/gbk, which cannot
+# encode Chinese characters when not in those code pages.
+# This is a no-op on Python < 3.7 (TextIOWrapper has no reconfigure).
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
 
 CHAPTER_DIR = Path("book/chapters")
 PATTERN = re.compile(r"^(\d{3})-.+\.md$")

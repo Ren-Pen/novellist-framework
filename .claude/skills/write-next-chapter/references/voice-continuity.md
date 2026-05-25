@@ -1,7 +1,7 @@
 # Voice Continuity
 
 When the skill reads the last 2 chapters (via
-`python .claude/tools/run.py get_recent_chapters 2`), the purpose is voice
+`python -X utf8 .claude/tools/run.py get_recent_chapters 2`), the purpose is voice
 continuity — making sure chapter N+1 sounds like it was written by the
 same person who wrote chapter N.
 

@@ -16,7 +16,16 @@ Exit code: 0 on success, 1 on error (file missing, etc.).
 """
 
 import sys
+
 from pathlib import Path
+
+# Force UTF-8 on stdout/stderr.
+# On Windows the console may default to cp932/cp936/gbk, which cannot
+# encode Chinese characters when not in those code pages.
+# This is a no-op on Python < 3.7 (TextIOWrapper has no reconfigure).
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
 
 
 def is_cjk(char: str) -> bool:

@@ -5,6 +5,8 @@
     "allow": [
       "Bash(python .claude/tools/run.py:*)",
       "Bash(python3 .claude/tools/run.py:*)",
+      "Bash(python -X utf8 .claude/tools/run.py:*)",
+      "Bash(python3 -X utf8 .claude/tools/run.py:*)",
       "Bash(.claude/tools/setup.sh:*)",
       "Bash(.claude/tools/setup.bat:*)",
 
