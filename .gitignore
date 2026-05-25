@@ -1,0 +1,13 @@
+# Book content is managed in its own git repo placed at book/.
+# The framework repo does not track any book content.
+book/
+
+# Local-only settings (not committed)
+.claude/settings.local.json
+
+# OS / editor noise
+.DS_Store
+*.swp
+*~
+__pycache__/
+*.pyc
