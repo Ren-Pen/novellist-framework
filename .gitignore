@@ -5,6 +5,9 @@ book/
 # Local-only settings (not committed)
 .claude/settings.local.json
 
+# Python venv for the tools/ scripts
+.venv/
+
 # OS / editor noise
 .DS_Store
 *.swp

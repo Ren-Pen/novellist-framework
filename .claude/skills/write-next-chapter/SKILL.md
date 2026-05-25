@@ -16,7 +16,23 @@ sequence and handles their interactions.
 
 ## Pre-flight check
 
-Before starting, verify the working directory has:
+Before starting, verify:
+
+**(a) Python venv is set up.**
+The tools require a Python venv at `.venv/`. If `.venv/bin/python`
+(Unix) or `.venv\Scripts\python.exe` (Windows) does not exist, tell
+the user:
+
+> 工具需要的 Python venv 还没初始化。请先跑:
+> - macOS/Linux/WSL: `.claude/tools/setup.sh`
+> - Windows: `.claude\tools\setup.bat`
+>
+> 跑完之后再来 /next。
+
+Stop.
+
+**(b) Book directory is set up.**
+The working directory must have:
 - `book/bible.md`
 - `book/outline.md`
 - `book/chapters/` (may be empty for Chapter 1)
@@ -32,7 +48,7 @@ bible manually), and stop.
 ### Step 1: Determine chapter number
 
 ```bash
-python .claude/tools/next_chapter_number.py
+.claude/tools/run.sh next_chapter_number
 ```
 
 This prints the next chapter number (e.g., `11`). Store it as `N`.
@@ -45,7 +61,7 @@ Read these files yourself (the skill does this, NOT the subagents):
 2. `book/outline.md` — find the entry for chapter `N`
 3. The last 2 chapters via:
    ```bash
-   python .claude/tools/get_recent_chapters.py 2
+   .claude/tools/run.sh get_recent_chapters 2
    ```
 4. `book/reader-feedback.log` if it exists — read last 5 entries
 5. `book/decisions.log` if it exists — scan for binding decisions

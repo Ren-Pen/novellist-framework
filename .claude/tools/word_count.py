@@ -9,7 +9,7 @@ Punctuation and whitespace are not counted. This matches the convention
 used in Chinese web fiction platforms (字数 / 中文字符).
 
 Usage:
-    python .claude/tools/word_count.py book/chapters/001-foo.md
+    .claude/tools/run.sh word_count book/chapters/001-foo.md
 
 Output (stdout): a single integer, the Chinese character count.
 Exit code: 0 on success, 1 on error (file missing, etc.).

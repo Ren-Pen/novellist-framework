@@ -11,16 +11,21 @@ with three subagents.
 A reusable framework that lives in a git repo. To write a novel:
 
 1. Clone this framework into a directory (e.g., `~/work/my-novel/`).
-2. Inside that directory, create a `book/` subdirectory which is the
+2. **Initialize the Python venv for tools:**
+   - Unix/macOS/WSL: `.claude/tools/setup.sh`
+   - Windows: `.claude\tools\setup.bat`
+   - Requires Python 3.9+. If your default `python3` is older, pass
+     `--python=python3.11` (or similar).
+3. Inside that directory, create a `book/` subdirectory which is the
    git repo for that specific novel's content.
-3. Open Claude Code with that directory as cwd. The framework loads
+4. Open Claude Code with that directory as cwd. The framework loads
    automatically via `.claude/`.
-4. Use `/next` to write chapters. Use natural language ("continue the
+5. Use `/next` to write chapters. Use natural language ("continue the
    story", "下一章") to trigger the same workflow.
 
 To write another novel: clone the framework again into a different
-directory. Each novel gets its own clone. Framework updates are pulled
-in via `git pull` per novel.
+directory. Each novel gets its own clone (and its own `.venv/`).
+Framework updates are pulled in via `git pull` per novel.
 
 ---
 

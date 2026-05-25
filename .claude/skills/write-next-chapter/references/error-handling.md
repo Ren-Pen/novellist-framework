@@ -115,7 +115,7 @@ If a subagent returns no content or returns an error:
 After `chapter-writer` saves, the skill MAY verify the word count:
 
 ```bash
-python .claude/tools/word_count.py book/chapters/<file>
+.claude/tools/run.sh word_count book/chapters/<file>
 ```
 
 If the count is:

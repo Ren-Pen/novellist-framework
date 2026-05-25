@@ -6,7 +6,7 @@ Reads chapter files from book/chapters/, sorts by chapter number
 by a separator line for easy visual scanning.
 
 Usage:
-    python .claude/tools/get_recent_chapters.py 2
+    .claude/tools/run.sh get_recent_chapters 2
 
 Argument:
     N    number of recent chapters to emit (must be positive integer)

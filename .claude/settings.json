@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+
+  "permissions": {
+    "allow": [
+      "Bash(.claude/tools/run.sh:*)",
+      "Bash(.claude/tools/setup.sh:*)",
+      "Bash(.claude/tools/run.bat:*)",
+      "Bash(.claude/tools/setup.bat:*)",
+
+      "Read(*)",
+
+      "Write(book/**)",
+      "Edit(book/**)",
+
+      "Write(.venv/**)",
+
+      "Bash(mkdir:book*)",
+      "Bash(mkdir:book/**)",
+      "Bash(ls:*)",
+      "Bash(cat:book/**)",
+      "Bash(wc:book/**)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(echo:*)",
+      "Bash(pwd)",
+
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ],
+
+    "ask": [
+      "Write(.claude/**)",
+      "Edit(.claude/**)",
+      "Write(CLAUDE.md)",
+      "Edit(CLAUDE.md)",
+      "Write(README.md)",
+      "Edit(README.md)",
+      "Write(.gitignore)",
+      "Edit(.gitignore)"
+    ],
+
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(rm -rf /*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean -fd:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(chmod 777:*)",
+      "Bash(sudo:*)"
+    ]
+  }
+}
