@@ -5,7 +5,7 @@ Counts files matching the pattern NNN-*.md directly in book/chapters/.
 Subdirectories like _archive/ or _rejected/ are ignored.
 
 Usage:
-    .claude/tools/run.sh next_chapter_number
+    python .claude/tools/run.py next_chapter_number
 
 Output (stdout): a single integer, the next chapter number.
 Exit code: 0 on success, 1 if book/chapters/ does not exist.

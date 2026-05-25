@@ -15,6 +15,9 @@
    "is this AI-slop?") belongs to subagents.
 5. **No side effects** unless explicitly named. Read-only scripts MUST
    NOT write anywhere.
+6. **Cross-platform.** A single entry point (`run.py`) handles both
+   Unix and Windows. No platform-specific tool invocations leak into
+   subagent or skill instructions.
 
 ## Setup (first time only)
 
@@ -27,7 +30,7 @@ The tools run in a project-local Python venv at `.venv/`. To create it:
 .claude/tools/setup.sh --python=python3.11
 ```
 
-**Windows:**
+**Windows native (cmd / PowerShell):**
 ```cmd
 .claude\tools\setup.bat
 .claude\tools\setup.bat python3.11
@@ -41,33 +44,58 @@ The setup script:
 To recreate the venv (e.g., changed Python version): delete `.venv/`
 and re-run setup.
 
-## Running tools
+## Running tools — the single cross-platform entry point
 
-All tools are invoked through `run.sh` (Unix) or `run.bat` (Windows).
-The runner uses the project venv and runs from the project root.
-
-**Unix / macOS / WSL:**
-```bash
-.claude/tools/run.sh <tool-name> [args...]
-```
-
-**Windows:**
-```cmd
-.claude\tools\run.bat <tool-name> [args...]
-```
-
-Tool name is the script filename without `.py`. Examples:
+All tools are invoked the same way on every platform:
 
 ```bash
-.claude/tools/run.sh next_chapter_number
-.claude/tools/run.sh word_count book/chapters/001-foo.md
-.claude/tools/run.sh get_recent_chapters 2
-.claude/tools/run.sh list_chapters
+python .claude/tools/run.py <tool-name> [args...]
 ```
 
-Subagent / skill docs use the Unix form. On Windows, Claude Code MAY
-need to substitute `.claude\tools\run.bat` — but if you use WSL or
-Git Bash, the Unix form works directly.
+Examples:
+
+```bash
+python .claude/tools/run.py next_chapter_number
+python .claude/tools/run.py word_count book/chapters/001-foo.md
+python .claude/tools/run.py get_recent_chapters 2
+python .claude/tools/run.py list_chapters
+```
+
+### Why this design
+
+`run.py` is the bootstrap. It can be executed by any system Python 3.x
+(no version pickiness, no PEP 585 syntax). Its only job is to:
+
+1. Find the project venv (`.venv/bin/python` on Unix,
+   `.venv\Scripts\python.exe` on Windows)
+2. Forward the invocation to that interpreter
+
+This means:
+- Subagent and skill instructions write `python .claude/tools/run.py ...`
+  ONCE. No "if Windows then run.bat else run.sh" branches anywhere.
+- The version-sensitive logic (Python 3.9+ for PEP 585) lives in the
+  venv. The bootstrap doesn't care.
+- It works in WSL, Git Bash, native cmd, native PowerShell, and any
+  POSIX shell, identically.
+
+The only platform-specific files are `setup.sh` and `setup.bat`,
+which exist purely because venv creation needs to invoke the right
+interpreter on each platform. After setup, you never see another `.sh`
+or `.bat`.
+
+### Bootstrap Python requirement
+
+The system `python` or `python3` command used to invoke `run.py` only
+needs to be Python 3. Any 3.x works — `run.py` itself uses only
+basic syntax compatible with 3.4+.
+
+If your system's default `python` is Python 2, use `python3` instead:
+
+```bash
+python3 .claude/tools/run.py next_chapter_number
+```
+
+The `settings.json` allows both `python` and `python3` prefixes.
 
 ## Inventory
 

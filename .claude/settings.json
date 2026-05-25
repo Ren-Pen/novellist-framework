@@ -3,9 +3,9 @@
 
   "permissions": {
     "allow": [
-      "Bash(.claude/tools/run.sh:*)",
+      "Bash(python .claude/tools/run.py:*)",
+      "Bash(python3 .claude/tools/run.py:*)",
       "Bash(.claude/tools/setup.sh:*)",
-      "Bash(.claude/tools/run.bat:*)",
       "Bash(.claude/tools/setup.bat:*)",
 
       "Read(*)",

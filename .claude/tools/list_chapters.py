@@ -13,7 +13,7 @@ Columns:
     file     filename
 
 Usage:
-    .claude/tools/run.sh list_chapters
+    python .claude/tools/run.py list_chapters
 
 Exit code: 0 on success, 1 if book/chapters/ does not exist.
 """
